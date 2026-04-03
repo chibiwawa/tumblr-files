@@ -446,12 +446,10 @@ container.imagesLoaded( function(){
     });
 });
 
-		container.infinitescroll({
+	container.infinitescroll({
 		navSelector  : 'div.pagination',    
 		nextSelector : 'div.pagination a#next',
 		itemSelector : 'li.post',
-		binder       : $('.inner-frame'),
-		behavior     : 'local',
 		},
 		function( newElements ) {
 		    $('.photoset-grid').photosetGrid({
