@@ -450,6 +450,7 @@ container.imagesLoaded( function(){
 		navSelector  : 'div.pagination',    
 		nextSelector : 'div.pagination a#next',
 		itemSelector : 'li.post',
+		binder       : $('.inner-frame'),
 		},
 		function( newElements ) {
 		    $('.photoset-grid').photosetGrid({
