@@ -53,7 +53,7 @@
     } while(overlaps(startX, startY, size));
 
     var b = document.createElement('div');
-    var duration = Math.random() * 4000 + 3000;
+    var duration = Math.random() * 8000 + 6000;
     var sway = Math.random() * 2 - 1;
 
     b.style.cssText =
