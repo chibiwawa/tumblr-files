@@ -1,3 +1,4 @@
+$(document).ready(function() {
     var $container = $('#posts');
 
     if (!$container.length || $container.find('li.post').length === 0) return;
@@ -30,3 +31,4 @@
             }
         });
     }
+});
