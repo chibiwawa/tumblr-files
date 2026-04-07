@@ -1,6 +1,6 @@
-var loader = document.getElementById('loading-screen');
-if (loader) {
-    function hideLoader() {
+window.addEventListener('load', function() {
+    var loader = document.getElementById('loading-screen');
+    if (loader) {
         setTimeout(function() {
             loader.classList.add('fade-out');
             setTimeout(function() {
@@ -9,10 +9,7 @@ if (loader) {
             }, 600);
         }, 800);
     }
-    if (document.readyState === 'complete') hideLoader();
-    else if (document.readyState === 'interactive') hideLoader();
-    else window.addEventListener('DOMContentLoaded', hideLoader);
-}
+});
 
 $(document).on('click', 'a[href*="tumblr.com"]', function(e) {
     var url = this.href;
