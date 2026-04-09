@@ -136,3 +136,56 @@ $(document).on('mouseleave', 'a, button, .like_button iframe, li.post img', func
   for(var i = 0; i < 2; i++) setTimeout(makeBubble, i * 600);
   setInterval(makeBubble, 1500);
 })();
+(function() {
+    var petals = [];
+    var maxPetals = 20;
+    var colors = ['#ffd6e0','#ffcce0','#ffdae8','#ffd1e8','#f4c2d7','#e8b4d9','#ddb8e8','#f0bbe6','#ffc4d6','#ffb8ca','#f7aec4','#edb5d5'];
+
+    $(document).on('mousemove', function(e) {
+        if (Math.random() > 0.3) return;
+
+        var petal = document.createElement('div');
+        var size = Math.random() * 8 + 6;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+
+        petal.style.cssText =
+            'position:fixed;pointer-events:none;z-index:2147483645;' +
+            'width:' + size + 'px;height:' + size + 'px;' +
+            'left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
+            'background:' + color + ';opacity:0.7;' +
+            'clip-path:polygon(50% 0%,100% 35%,80% 100%,50% 80%,20% 100%,0% 35%);';
+
+        document.body.appendChild(petal);
+        petals.push(petal);
+
+        if (petals.length > maxPetals) {
+            var old = petals.shift();
+            if (old.parentNode) old.remove();
+        }
+
+        var startX = e.clientX;
+        var startY = e.clientY;
+        var drift = Math.random() * 30 - 15;
+        var rotation = Math.random() * 360;
+        var start = performance.now();
+        var duration = 800 + Math.random() * 400;
+
+        function animate(time) {
+            var p = (time - start) / duration;
+            if (p > 1) {
+                if (petal.parentNode) petal.remove();
+                var idx = petals.indexOf(petal);
+                if (idx > -1) petals.splice(idx, 1);
+                return;
+            }
+
+            petal.style.left = (startX + drift * p) + 'px';
+            petal.style.top = (startY + 30 * p) + 'px';
+            petal.style.opacity = 0.7 * (1 - p);
+            petal.style.transform = 'rotate(' + (rotation + p * 180) + 'deg) scale(' + (1 - p * 0.5) + ')';
+
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+    });
+})();
