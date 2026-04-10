@@ -189,3 +189,37 @@ $(document).on('mouseleave', 'a, button, .like_button iframe, li.post img', func
         requestAnimationFrame(animate);
     });
 })();
+document.querySelectorAll('.npf_chat').forEach(chat => {
+    // Create a new container to hold our processed lines
+    const fragment = document.createDocumentFragment();
+    let lineCount = 0;
+    
+    // Convert to array so we can process safely
+    const children = Array.from(chat.childNodes);
+    
+    // We filter out the <br> tags because they break the flow
+    const validNodes = children.filter(node => node.nodeName !== 'BR');
+
+    for (let i = 0; i < validNodes.length; i++) {
+        // Look for the Name (B tag)
+        if (validNodes[i].nodeName === 'B') {
+            const wrapper = document.createElement('div');
+            wrapper.className = (lineCount % 2 === 0) ? 'chat-even' : 'chat-odd';
+            
+            // Add the Name
+            wrapper.appendChild(validNodes[i].cloneNode(true));
+            
+            // Add the text that follows it (if it's a text node)
+            if (validNodes[i+1] && validNodes[i+1].nodeType === Node.TEXT_NODE) {
+                wrapper.appendChild(validNodes[i+1].cloneNode(true));
+            }
+            
+            fragment.appendChild(wrapper);
+            lineCount++;
+        }
+    }
+    
+    // Replace the old messy content with our clean, alternating rows
+    chat.innerHTML = '';
+    chat.appendChild(fragment);
+});
