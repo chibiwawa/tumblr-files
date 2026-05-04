@@ -3,14 +3,12 @@ function createSakura() {
     if (!container) return;
     var petal = document.createElement('div');
     petal.className = 'sakura-petal';
-    // start from the top-left area, spread across the top
     petal.style.left = (Math.random() * window.innerWidth * 0.6) + 'px';
     petal.style.top = (-10 + Math.random() * 60) + 'px';
     petal.style.animationDuration = (Math.random() * 6 + 12) + 's';
     var size = 8 + Math.random() * 10;
     petal.style.width = size + 'px';
-    petal.style.height = (size * 1.4) + 'px'; // elongated for wisteria
-    // wisteria colors - purples, lavenders, lilacs
+    petal.style.height = (size * 1.4) + 'px';
     petal.style.background = [
         '#d396ff','#c77dff','#e0aaff','#b388ff',
         '#ce93d8','#dbb2ff','#c9a0dc','#e1bee7',
@@ -20,11 +18,12 @@ function createSakura() {
     setTimeout(function() { if (petal.parentNode) petal.remove(); }, 18000);
 }
 setInterval(createSakura, 800);
-var $cursor = $('#custom-cursor');
+
+var cursor = document.getElementById('custom-cursor');
 var cursorX = 0, cursorY = 0;
 var actualX = 0, actualY = 0;
 
-$(document).on('mousemove', function(e) {
+document.addEventListener('mousemove', function(e) {
     cursorX = e.clientX;
     cursorY = e.clientY;
 });
@@ -32,20 +31,24 @@ $(document).on('mousemove', function(e) {
 function updateCursor() {
     actualX += (cursorX - actualX) * 0.5;
     actualY += (cursorY - actualY) * 0.5;
-    $cursor.css({
-        left: actualX + 'px',
-        top: actualY + 'px'
-    });
+    if (cursor) {
+        cursor.style.left = actualX + 'px';
+        cursor.style.top = actualY + 'px';
+    }
     requestAnimationFrame(updateCursor);
 }
 requestAnimationFrame(updateCursor);
 
-$(document).on('mouseenter', 'a, button, .like_button iframe, li.post img', function() {
-    $cursor.addClass('hovered');
+document.addEventListener('mouseover', function(e) {
+    if (e.target.closest('a, button, .like_button iframe, li.post img')) {
+        if (cursor) cursor.classList.add('hovered');
+    }
 });
 
-$(document).on('mouseleave', 'a, button, .like_button iframe, li.post img', function() {
-    $cursor.removeClass('hovered');
+document.addEventListener('mouseout', function(e) {
+    if (e.target.closest('a, button, .like_button iframe, li.post img')) {
+        if (cursor) cursor.classList.remove('hovered');
+    }
 });
 
 (function() {
@@ -53,7 +56,7 @@ $(document).on('mouseleave', 'a, button, .like_button iframe, li.post img', func
     var maxPetals = 10;
     var colors = ['#d396ff','#c77dff','#e0aaff','#b388ff','#ce93d8','#dbb2ff','#c9a0dc','#e1bee7','#d1c4e9','#b39ddb','#f3e5f5','#e8b4d9'];
 
-    $(document).on('mousemove', function(e) {
+    document.addEventListener('mousemove', function(e) {
         if (Math.random() > 0.5) return;
 
         var petal = document.createElement('div');
