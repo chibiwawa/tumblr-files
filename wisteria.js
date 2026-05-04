@@ -5,7 +5,7 @@ function createSakura() {
     petal.className = 'sakura-petal';
     petal.style.left = (Math.random() * window.innerWidth * 0.6) + 'px';
     petal.style.top = (-10 + Math.random() * 60) + 'px';
-    petal.style.animationDuration = (Math.random() * 6 + 12) + 's';
+    petal.style.animationDuration = (Math.random() * 10 + 20) + 's';
     var size = 8 + Math.random() * 10;
     petal.style.width = size + 'px';
     petal.style.height = (size * 1.4) + 'px';
@@ -15,7 +15,7 @@ function createSakura() {
         '#d1c4e9','#b39ddb','#f3e5f5','#e8b4d9'
     ][Math.floor(Math.random() * 12)];
     container.appendChild(petal);
-    setTimeout(function() { if (petal.parentNode) petal.remove(); }, 18000);
+    setTimeout(function() { if (petal.parentNode) petal.remove(); }, 31000);
 }
 setInterval(createSakura, 800);
 
