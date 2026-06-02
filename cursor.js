@@ -36,11 +36,3 @@ document.addEventListener('mouseout', function(e) {
 });
 
 /* --- 3. END FAILSAFE --- */
-let hasMoved = false;
-document.addEventListener('mousemove', function() { hasMoved = true; }, { once: true });
-setTimeout(() => {
-    if (!hasMoved) {
-        document.body.classList.remove('custom-cursor-active');
-        if (cursor) cursor.style.display = 'none';
-    }
-}, 1500);
