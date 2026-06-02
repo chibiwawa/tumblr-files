@@ -1,4 +1,3 @@
-<script>
 // --- 1. THE CURSOR ENGINE (DONUT FIX) ---
 var cursor = document.getElementById('custom-cursor');
 var mouseX = 0, mouseY = 0;
@@ -122,4 +121,4 @@ function createDroplet(x, y) {
         { transform: 'translate(' + (Math.cos(angle)*dist) + 'px, ' + (Math.sin(angle)*dist - 20) + 'px)', opacity: 0 }
     ], { duration: 500, easing: 'ease-out' }).onfinish = function() { drop.remove(); };
 }
-</script>
+
